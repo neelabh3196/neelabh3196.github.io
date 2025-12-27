@@ -1,150 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy New Year ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Happy New Year Pranjal ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      color: #fff;
-      text-align: center;
-      overflow-x: hidden;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
 
-    .container {
-      padding: 60px 20px;
-      max-width: 800px;
-      margin: auto;
-    }
+.container {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+}
 
-    h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-    }
+h1 {
+  font-size: 3em;
+}
 
-    h2 {
-      font-weight: 300;
-      margin-bottom: 30px;
-    }
+h2 {
+  font-weight: 300;
+  margin-bottom: 30px;
+}
 
-    .card {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      padding: 30px;
-      margin: 30px 0;
-      backdrop-filter: blur(8px);
-    }
+.countdown {
+  font-size: 2em;
+  margin: 20px 0;
+  letter-spacing: 3px;
+}
 
-    .card p {
-      font-size: 1.2em;
-      line-height: 1.6;
-    }
+.card {
+  background: rgba(255,255,255,0.15);
+  padding: 30px;
+  border-radius: 20px;
+  margin: 30px 0;
+  backdrop-filter: blur(8px);
+}
 
-    button {
-      background: #fff;
-      color: #ff5f7e;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1em;
-      border-radius: 30px;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: 0.3s;
-    }
+.photos img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 15px;
+  margin: 10px;
+}
 
-    button:hover {
-      transform: scale(1.05);
-    }
+button {
+  background: white;
+  color: #ff4f81;
+  border: none;
+  padding: 15px 35px;
+  border-radius: 30px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    .hidden {
-      display: none;
-      margin-top: 20px;
-      font-size: 1.3em;
-    }
+button:hover {
+  transform: scale(1.05);
+}
 
-    footer {
-      margin-top: 50px;
-      font-size: 0.9em;
-      opacity: 0.8;
-    }
+#surprise {
+  display: none;
+  margin-top: 40px;
+  font-size: 1.3em;
+  animation: fadeIn 2s;
+}
 
-    /* Floating hearts */
-    .heart {
-      position: fixed;
-      bottom: -10px;
-      color: #fff;
-      font-size: 20px;
-      animation: float 6s linear infinite;
-    }
+@keyframes fadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
 
-    @keyframes float {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
-    }
-  </style>
+.heart {
+  position: fixed;
+  bottom: -10px;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  0% {transform: translateY(0); opacity: 1;}
+  100% {transform: translateY(-100vh); opacity: 0;}
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
-    <h1>Happy New Year ❤️</h1>
-    <h2>To the most special person in my life</h2>
+<audio id="bgMusic" src="music.mp3"></audio>
 
-    <div class="card">
-      <p>
-        This year was beautiful because of you.  
-        Thank you for being my smile, my calm, and my happiness.  
-        I can’t wait to create more memories with you.
-      </p>
-    </div>
+<div class="container">
+  <h1 id="mainTitle">Countdown to New Year 🎆</h1>
+  <div class="countdown" id="countdown">Loading...</div>
 
-    <div class="card">
-      <p>
-        Here’s to more laughs, more love, more fights we survive,
-        and a future where it’s always **you & me** ✨
-      </p>
-
-      <button onclick="showMessage()">Click if you love me 💖</button>
-      <div id="surprise" class="hidden">
-        I love you more than words can say ❤️
-      </div>
-    </div>
-
-    <footer>
-      Made with ❤️ just for you
-    </footer>
+  <div class="card">
+    <p>
+      Dear Pranjal,<br><br>
+      This year was special because of you.
+      Thank you for being my happiness, my calm, and my smile.
+    </p>
   </div>
 
-  <script>
-    function showMessage() {
-      document.getElementById("surprise").style.display = "block";
-    }
+  <div class="card photos">
+    <h2>Our Memories 💕</h2>
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+  </div>
 
-    // Floating hearts animation
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-      document.body.appendChild(heart);
+  <div class="card">
+    <h2>A Little Surprise 🌙</h2>
+    <button onclick="showSurprise()">Click Here My Love 💖</button>
 
-      setTimeout(() => {
-        heart.remove();
-      }, 6000);
-    }, 500);
-  </script>
+    <div id="surprise">
+      <p>
+        My Bubu 🥹❤️<br><br>
+        I choose you. Today. Tomorrow. Always.<br>
+        Thank you for being mine.<br><br>
+        I love you endlessly 💫
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    Made with ❤️ just for you, Pranjal
+  </footer>
+</div>
+
+<script>
+// COUNTDOWN FUNCTION
+function updateCountdown() {
+  const now = new Date();
+  const midnight = new Date();
+  midnight.setHours(24, 0, 0, 0);
+
+  const diff = midnight - now;
+
+  if (diff <= 0) {
+    document.getElementById("countdown").innerHTML = "🎉 HAPPY NEW YEAR 🎉";
+    document.getElementById("mainTitle").innerHTML = "Happy New Year, Pranjal ❤️";
+    return;
+  }
+
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("countdown").innerHTML =
+    `${hours}h : ${minutes}m : ${seconds}s`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// SURPRISE BUTTON
+function showSurprise() {
+  document.getElementById("surprise").style.display = "block";
+  document.getElementById("bgMusic").play();
+
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 400);
+}
+</script>
 
 </body>
 </html>
