@@ -22,6 +22,8 @@ body {
 #fireworks { z-index: 1000; }
 
 .container {
+  position: relative;
+  z-index: 2;
   max-width: 900px;
   margin: auto;
   padding: 60px 20px;
@@ -55,6 +57,7 @@ h1 { font-size: 3rem; }
 #stars {
   position: fixed;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -62,6 +65,7 @@ h1 { font-size: 3rem; }
 #hearts-container {
   position: fixed;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
 }
 .heart {
@@ -164,7 +168,7 @@ canvas { position:fixed; inset:0; pointer-events:none; }
   <div class="card polaroids">
     <h2>Our Memories 💕</h2>
     <div class="polaroid"><img src="photo1.jpeg"><p>Us ❤️</p></div>
-    <div class="polaroid"><img src="photo2.jpeg"><p>Forever 💖</p></div>
+    <div class="polaroid"><img src="photo2.jpeg"><p> Mwahehe 💖</p></div>
   </div>
 
   <button class="btn" onclick="openPassword()">🔐 Unlock Secret</button>
