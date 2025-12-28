@@ -124,12 +124,7 @@ h1 { font-size: 3rem; }
   color: #333;
 }
 
-@keyframes dropIn {
-  from { opacity: 0; transform: translateY(-40px) rotate(-5deg); }
-  to { opacity: 1; transform: translateY(0) rotate(0deg); }
-}
-
-/* HIDDEN BOXES */
+/* HIDDEN */
 .hidden-box {
   display: none;
   margin-top: 40px;
@@ -166,6 +161,22 @@ h1 { font-size: 3rem; }
   color: #ff4d6d;
 }
 
+/* PASSWORD INPUT */
+.password-box input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+
+.error {
+  color: #ffccd5;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
 /* FIREWORKS */
 #fireworks {
   position: fixed;
@@ -183,7 +194,7 @@ h1 { font-size: 3rem; }
 
 <div class="container">
   <h1>🎆 Happy New Year 🎆</h1>
-  <h2>To My Love, BUBU ❤️</h2>
+  <h2>To My Love, Pranjal ❤️</h2>
 
   <div class="countdown" id="countdown"></div>
 
@@ -192,27 +203,19 @@ h1 { font-size: 3rem; }
 
   <div class="card photos polaroids">
     <h2>Our Memories 💕</h2>
-    <div class="polaroid">
-      <img src="photo1.jpeg">
-      <p>Us ❤️</p>
-    </div>
-    <div class="polaroid">
-      <img src="photo2.jpeg">
-      <p>Forever 💖</p>
-    </div>
+    <div class="polaroid"><img src="photo1.jpeg"><p>Us ❤️</p></div>
+    <div class="polaroid"><img src="photo2.jpeg"><p>Forever 💖</p></div>
   </div>
 
-  <div id="surprise" class="hidden-box">
-    <h2>My Bubu 💕</h2>
-    <p>You are my favorite notification and my safest place ❤️</p>
-  </div>
-
-  <div style="opacity:0.6;cursor:pointer" onclick="showSecret()">
-    (psst… click here)
-  </div>
+  <button class="btn" onclick="openPassword()">🔐 Unlock Secret</button>
 
   <div id="secretMessage" class="hidden-box">
-    <p>I love you more than anyone ever could ❤️</p>
+    <h2>Only You 💖</h2>
+    <p>
+      You are my home, my heart, my forever.  
+      Every day with you is my favorite story.  
+      I choose you — always ❤️
+    </p>
   </div>
 </div>
 
@@ -225,10 +228,21 @@ h1 { font-size: 3rem; }
       You are my favorite notification, my safest place.<br><br>
       Sometimes I feel I don’t deserve someone as pure as you.<br><br>
       You made my life softer, warmer, and more meaningful.<br><br>
-      I may mess up sometimes, but I love you endlessly.<br><br>
-      I’m grateful for you. Always ❤️<br><br>
-      — Yours, Neelabh
+      I love you more than anyone ever could.<br><br>
+      — Yours, Neelabh ❤️
     </p>
+  </div>
+</div>
+
+<!-- PASSWORD MODAL -->
+<div class="modal" id="passwordModal">
+  <div class="modal-content password-box">
+    <span class="close" onclick="closePassword()">×</span>
+    <h2>Enter Our Date 💞</h2>
+    <p>(Hint: Our anniversary)</p>
+    <input type="password" id="passwordInput" placeholder="DDMMYY">
+    <div class="error" id="errorMsg"></div>
+    <button class="btn" onclick="checkPassword()">Unlock 💖</button>
   </div>
 </div>
 
@@ -244,11 +258,26 @@ setInterval(() => {
   setTimeout(() => h.remove(), 10000);
 }, 400);
 
-// BASIC FUNCTIONS
-function showSurprise(){document.getElementById("surprise").style.display="block";}
+// BASIC
+function showSurprise(){}
 function openLetter(){document.getElementById("letter").style.display="flex";}
 function closeLetter(){document.getElementById("letter").style.display="none";}
-function showSecret(){document.getElementById("secretMessage").style.display="block";}
+function openPassword(){document.getElementById("passwordModal").style.display="flex";}
+function closePassword(){document.getElementById("passwordModal").style.display="none";}
+
+// 🔐 CHANGE PASSWORD HERE 👇
+const correctPassword = "23012025";  // ← date yaad karo Bubu
+
+function checkPassword(){
+  const input = document.getElementById("passwordInput").value;
+  if(input === correctPassword){
+    closePassword();
+    document.getElementById("secretMessage").style.display="block";
+  } else {
+    document.getElementById("errorMsg").innerText =
+      "Not quite… but I know you remember 💕";
+  }
+}
 
 // COUNTDOWN
 function updateCountdown(){
@@ -261,31 +290,6 @@ function updateCountdown(){
 }
 setInterval(updateCountdown,1000);
 updateCountdown();
-
-// FIREWORKS
-const canvas=document.getElementById("fireworks");
-const ctx=canvas.getContext("2d");
-canvas.width=innerWidth;canvas.height=innerHeight;
-let particles=[];
-function explode(x,y){
-  for(let i=0;i<50;i++)
-    particles.push({x,y,dx:(Math.random()-.5)*8,dy:(Math.random()-.5)*8,l:100,c:`hsl(${Math.random()*360},100%,60%)`});
-}
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles=particles.filter(p=>{
-    ctx.fillStyle=p.c;
-    ctx.fillRect(p.x,p.y,3,3);
-    p.x+=p.dx;p.y+=p.dy;p.l--;
-    return p.l>0;
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-setInterval(()=>{
-  const n=new Date();
-  if(n.getHours()==0 && n.getMinutes()==0) explode(Math.random()*canvas.width,Math.random()*canvas.height/2);
-},500);
 </script>
 
 </body>
