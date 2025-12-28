@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy New Year Pranjal ❤️</title>
+<title>Happy New Year BUBU ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -15,12 +15,16 @@ body {
   overflow-x: hidden;
 }
 
+/* LAYERS */
+#stars { z-index: 0; }
+#hearts-container { z-index: 1; }
+.container { z-index: 2; position: relative; }
+#fireworks { z-index: 1000; }
+
 .container {
   max-width: 900px;
   margin: auto;
   padding: 60px 20px;
-  position: relative;
-  z-index: 2;
 }
 
 h1 { font-size: 3rem; }
@@ -45,18 +49,21 @@ h1 { font-size: 3rem; }
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   transition: 0.3s;
 }
-
 .btn:hover { transform: scale(1.1); }
 
-/* FLOATING HEARTS */
+/* STARS */
+#stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* HEARTS */
 #hearts-container {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  overflow: hidden;
-  z-index: 1;
 }
-
 .heart {
   position: absolute;
   bottom: -20px;
@@ -65,25 +72,19 @@ h1 { font-size: 3rem; }
   background: pink;
   transform: rotate(45deg);
   animation: floatUp 8s linear infinite;
-  opacity: 0.7;
 }
-
-.heart::before,
-.heart::after {
-  content: "";
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background: pink;
-  border-radius: 50%;
+.heart::before, .heart::after {
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:pink;
+  border-radius:50%;
 }
-
-.heart::before { top: -9px; left: 0; }
-.heart::after { left: -9px; top: 0; }
-
+.heart::before{top:-9px;}
+.heart::after{left:-9px;}
 @keyframes floatUp {
-  from { transform: translateY(0) rotate(45deg); opacity: 0.8; }
-  to { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+  to { transform: translateY(-100vh) rotate(45deg); opacity:0; }
 }
 
 /* CARDS */
@@ -95,100 +96,60 @@ h1 { font-size: 3rem; }
 }
 
 /* POLAROIDS */
-.polaroids {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
+.polaroids { display:flex; flex-wrap:wrap; justify-content:center; }
 .polaroid {
-  background: white;
-  padding: 10px 10px 25px;
-  margin: 15px;
-  width: 220px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  border-radius: 8px;
-  animation: dropIn 1s ease forwards;
+  background:white;
+  padding:10px 10px 25px;
+  margin:15px;
+  width:220px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  border-radius:8px;
 }
-
 .polaroid img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 5px;
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:5px;
 }
+.polaroid p { color:#333; margin-top:10px; }
 
-.polaroid p {
-  margin: 10px 0 0;
-  font-size: 14px;
-  color: #333;
-}
-
-/* HIDDEN */
-.hidden-box {
-  display: none;
-  margin-top: 40px;
-  padding: 30px;
-  background: rgba(255,255,255,0.25);
-  border-radius: 20px;
-}
-
-/* MODAL */
+/* MODALS */
 .modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(5px);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(5px);
+  justify-content:center;
+  align-items:center;
 }
-
 .modal-content {
-  background: white;
-  color: #333;
-  padding: 30px;
-  border-radius: 20px;
-  max-width: 520px;
-  text-align: left;
+  background:white;
+  color:#333;
+  padding:30px;
+  border-radius:20px;
+  max-width:520px;
+  text-align:left;
+}
+.close { float:right; cursor:pointer; font-size:22px; color:#ff4d6d; }
+
+/* SECRET */
+.hidden-box {
+  display:none;
+  margin-top:40px;
+  padding:30px;
+  background:rgba(255,255,255,0.25);
+  border-radius:20px;
 }
 
-.close {
-  float: right;
-  font-size: 22px;
-  cursor: pointer;
-  color: #ff4d6d;
-}
-
-/* PASSWORD INPUT */
-.password-box input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: none;
-  font-size: 16px;
-}
-
-.error {
-  color: #ffccd5;
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-/* FIREWORKS */
-#fireworks {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1000;
-}
+/* CANVAS */
+canvas { position:fixed; inset:0; pointer-events:none; }
 </style>
 </head>
 
 <body>
 
+<canvas id="stars"></canvas>
 <div id="hearts-container"></div>
 <canvas id="fireworks"></canvas>
 
@@ -198,10 +159,9 @@ h1 { font-size: 3rem; }
 
   <div class="countdown" id="countdown"></div>
 
-  <button class="btn" onclick="showSurprise()">🎁 Surprise</button>
   <button class="btn" onclick="openLetter()">💌 Love Letter</button>
 
-  <div class="card photos polaroids">
+  <div class="card polaroids">
     <h2>Our Memories 💕</h2>
     <div class="polaroid"><img src="photo1.jpeg"><p>Us ❤️</p></div>
     <div class="polaroid"><img src="photo2.jpeg"><p>Forever 💖</p></div>
@@ -212,12 +172,12 @@ h1 { font-size: 3rem; }
   <div id="secretMessage" class="hidden-box">
     <h2>Only You 💖</h2>
     <p>
-      You are my home, my heart, my forever.
-      Every day with you is my favorite story, one I never get tired of living.
-      In your presence, I find peace, warmth, and a love that feels safe and real.
-      You make ordinary moments feel special just by being you.
-      No matter where life takes us, my Love will always remain the same.
-      I Love U Kuchu Puchu ❤️
+      You are my home, my heart, my forever.  
+      Every day with you is my favorite story.  
+      In your presence, I find peace and warmth.  
+      No matter where life takes us,  
+      my love will always remain the same.  
+      I love you Kuchu Puchu ❤️
     </p>
   </div>
 </div>
@@ -229,143 +189,98 @@ h1 { font-size: 3rem; }
     <h2>My Love 💌</h2>
     <p>
       You are my favorite notification, my safest place.<br><br>
-      Sometimes I feel I don’t deserve someone as pure as you.<br><br>
       You made my life softer, warmer, and more meaningful.<br><br>
-      I love you more than anyone ever could.<br><br>
+      I love you more than words can ever explain.<br><br>
       — Yours, Neelabh ❤️
     </p>
   </div>
 </div>
 
-<!-- PASSWORD MODAL -->
+<!-- PASSWORD -->
 <div class="modal" id="passwordModal">
-  <div class="modal-content password-box">
+  <div class="modal-content">
     <span class="close" onclick="closePassword()">×</span>
     <h2>Enter Our Date 💞</h2>
-    <p>(Hint: Our Special date)</p>
-    <input type="password" id="passwordInput" placeholder="DDMMYY">
-    <div class="error" id="errorMsg"></div>
+    <input id="passwordInput" placeholder="DDMMYYYY">
     <button class="btn" onclick="checkPassword()">Unlock 💖</button>
+    <div id="errorMsg"></div>
   </div>
 </div>
 
 <script>
-// HEARTS
-const heartsContainer = document.getElementById("hearts-container");
-setInterval(() => {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.style.left = Math.random() * 100 + "vw";
-  h.style.animationDuration = 5 + Math.random() * 5 + "s";
-  heartsContainer.appendChild(h);
-  setTimeout(() => h.remove(), 10000);
-}, 400);
-
-// BASIC
-function showSurprise(){}
-function openLetter(){document.getElementById("letter").style.display="flex";}
-function closeLetter(){document.getElementById("letter").style.display="none";}
-function openPassword(){document.getElementById("passwordModal").style.display="flex";}
-function closePassword(){document.getElementById("passwordModal").style.display="none";}
-
-// 🔐 CHANGE PASSWORD HERE 👇
-const correctPassword = "23012025";  // ← date yaad karo Bubu
-
-function checkPassword(){
-  const input = document.getElementById("passwordInput").value;
-  if(input === correctPassword){
-    closePassword();
-    document.getElementById("secretMessage").style.display="block";
-    fireworkShow(); // 🎆 FIREWORKS AFTER UNLOCK
-  } else {
-    document.getElementById("errorMsg").innerText =
-      "Hmmm Yaad nhi , blehh wapas try karo Hmph !! 💕";
-  }
-}
-
-// COUNTDOWN
-function updateCountdown(){
-  const now=new Date();
-  const ny=new Date("January 1, 2026 00:00:00");
-  const d=ny-now;
-  if(d<=0){document.getElementById("countdown").innerHTML="🎉 Happy New Year My Love 🎉";return;}
-  document.getElementById("countdown").innerHTML=
-    `${Math.floor(d/86400000)}d ${Math.floor(d/3600000)%24}h ${Math.floor(d/60000)%60}m ${Math.floor(d/1000)%60}s`;
-}
-setInterval(updateCountdown,1000);
-updateCountdown();
-// 🎆 FIREWORKS ENGINE
-const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let fireworks = [];
-
-class Firework {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.particles = [];
-    for (let i = 0; i < 80; i++) {
-      this.particles.push({
-        x: x,
-        y: y,
-        angle: Math.random() * Math.PI * 2,
-        speed: Math.random() * 5 + 2,
-        life: 100
-      });
-    }
-  }
-
-  update() {
-    this.particles.forEach(p => {
-      p.x += Math.cos(p.angle) * p.speed;
-      p.y += Math.sin(p.angle) * p.speed;
-      p.speed *= 0.96;
-      p.life--;
-    });
-  }
-
-  draw() {
-    this.particles.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255, 182, 193, 0.9)";
-      ctx.fill();
-    });
-  }
-}
-
-function launchFirework() {
-  fireworks.push(
-    new Firework(
-      Math.random() * canvas.width,
-      Math.random() * canvas.height * 0.5
-    )
-  );
-}
-
-function animateFireworks() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  fireworks.forEach((f, i) => {
-    f.update();
-    f.draw();
-    if (f.particles[0].life <= 0) fireworks.splice(i, 1);
+// ⭐ STARS
+const sc=document.getElementById("stars"), sctx=sc.getContext("2d");
+sc.width=innerWidth; sc.height=innerHeight;
+let stars=[...Array(200)].map(()=>({x:Math.random()*sc.width,y:Math.random()*sc.height,r:Math.random()*1.5,a:Math.random(),d:Math.random()*0.02}));
+function drawStars(){
+  sctx.clearRect(0,0,sc.width,sc.height);
+  stars.forEach(s=>{
+    s.a+=s.d; if(s.a<=0||s.a>=1) s.d*=-1;
+    sctx.fillStyle=`rgba(255,255,255,${s.a})`;
+    sctx.beginPath(); sctx.arc(s.x,s.y,s.r,0,Math.PI*2); sctx.fill();
   });
-  requestAnimationFrame(animateFireworks);
+  requestAnimationFrame(drawStars);
 }
-animateFireworks();
+drawStars();
 
-// 🎆 BURST MODE
-function fireworkShow() {
-  let count = 0;
-  const interval = setInterval(() => {
-    launchFirework();
-    count++;
-    if (count > 15) clearInterval(interval);
-  }, 300);
+// ❤️ HEARTS
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.style.left=Math.random()*100+"vw";
+  document.getElementById("hearts-container").appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},400);
+
+// 🎆 FIREWORKS
+const fw=document.getElementById("fireworks"), fctx=fw.getContext("2d");
+fw.width=innerWidth; fw.height=innerHeight;
+let fireworks=[];
+function boom(){
+  fireworks.push([...Array(80)].map(()=>({
+    x:Math.random()*fw.width,y:Math.random()*fw.height/2,
+    a:Math.random()*Math.PI*2,s:Math.random()*4+2,l:100
+  })));
 }
+function animateFW(){
+  fctx.clearRect(0,0,fw.width,fw.height);
+  fireworks.forEach(f=>{
+    f.forEach(p=>{
+      p.x+=Math.cos(p.a)*p.s;
+      p.y+=Math.sin(p.a)*p.s;
+      p.l--;
+      fctx.fillStyle="rgba(255,182,193,0.8)";
+      fctx.fillRect(p.x,p.y,2,2);
+    });
+  });
+  fireworks=fireworks.filter(f=>f[0].l>0);
+  requestAnimationFrame(animateFW);
+}
+animateFW();
+
+// ⏳ COUNTDOWN
+function updateCountdown(){
+  const d=new Date("Jan 1, 2026")-new Date();
+  if(d<=0){document.getElementById("countdown").innerHTML="🎉 Happy New Year 🎉"; boom(); return;}
+  document.getElementById("countdown").innerHTML=
+  Math.floor(d/86400000)+"d "+Math.floor(d/3600000)%24+"h "+Math.floor(d/60000)%60+"m";
+}
+setInterval(updateCountdown,1000); updateCountdown();
+
+// 🔐 PASSWORD
+const correctPassword="23012025";
+function checkPassword(){
+  if(passwordInput.value===correctPassword){
+    secretMessage.style.display="block";
+    closePassword(); boom();
+  } else errorMsg.innerText=" Hmm date yaad nhi , jao retry karo httt HMPHHHHH ❤️";
+}
+
+// MODALS
+function openLetter(){letter.style.display="flex";}
+function closeLetter(){letter.style.display="none";}
+function openPassword(){passwordModal.style.display="flex";}
+function closePassword(){passwordModal.style.display="none";}
 </script>
 
 </body>
