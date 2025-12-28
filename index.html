@@ -19,6 +19,8 @@ body {
   max-width: 900px;
   margin: auto;
   padding: 60px 20px;
+  position: relative;
+  z-index: 2;
 }
 
 h1 { font-size: 3rem; }
@@ -46,6 +48,45 @@ h1 { font-size: 3rem; }
 
 .btn:hover { transform: scale(1.1); }
 
+/* FLOATING HEARTS */
+#hearts-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  width: 18px;
+  height: 18px;
+  background: pink;
+  transform: rotate(45deg);
+  animation: floatUp 8s linear infinite;
+  opacity: 0.7;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: pink;
+  border-radius: 50%;
+}
+
+.heart::before { top: -9px; left: 0; }
+.heart::after { left: -9px; top: 0; }
+
+@keyframes floatUp {
+  from { transform: translateY(0) rotate(45deg); opacity: 0.8; }
+  to { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+}
+
+/* CARDS */
 .card {
   margin-top: 50px;
   padding: 30px;
@@ -53,26 +94,48 @@ h1 { font-size: 3rem; }
   border-radius: 20px;
 }
 
-.card.photos img {
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin: 10px;
+/* POLAROIDS */
+.polaroids {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
+.polaroid {
+  background: white;
+  padding: 10px 10px 25px;
+  margin: 15px;
+  width: 220px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border-radius: 8px;
+  animation: dropIn 1s ease forwards;
+}
+
+.polaroid img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.polaroid p {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #333;
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-40px) rotate(-5deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+
+/* HIDDEN BOXES */
 .hidden-box {
   display: none;
   margin-top: 40px;
   padding: 30px;
   background: rgba(255,255,255,0.25);
   border-radius: 20px;
-  animation: fadeIn 1s ease;
-}
-
-@keyframes fadeIn {
-  from {opacity:0; transform:translateY(20px);}
-  to {opacity:1; transform:translateY(0);}
 }
 
 /* MODAL */
@@ -94,12 +157,6 @@ h1 { font-size: 3rem; }
   border-radius: 20px;
   max-width: 520px;
   text-align: left;
-  animation: pop 0.4s ease;
-}
-
-.modal-content h2 {
-  text-align: center;
-  color: #ff4d6d;
 }
 
 .close {
@@ -109,31 +166,10 @@ h1 { font-size: 3rem; }
   color: #ff4d6d;
 }
 
-@keyframes pop {
-  from {transform: scale(0.7); opacity:0;}
-  to {transform: scale(1); opacity:1;}
-}
-
-.secret {
-  margin-top: 40px;
-  font-size: 14px;
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-footer {
-  margin-top: 60px;
-  font-size: 14px;
-  opacity: 0.8;
-}
-
 /* FIREWORKS */
 #fireworks {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
   z-index: 1000;
 }
@@ -142,169 +178,114 @@ footer {
 
 <body>
 
+<div id="hearts-container"></div>
 <canvas id="fireworks"></canvas>
 
 <div class="container">
   <h1>🎆 Happy New Year 🎆</h1>
-  <h2>To My Love, Pranjal ❤️</h2>
+  <h2>To My Love, BUBU ❤️</h2>
 
-  <div class="countdown" id="countdown">Loading...</div>
+  <div class="countdown" id="countdown"></div>
 
-  <button class="btn" onclick="showSurprise()">🎁 Surprise for You</button>
-  <button class="btn" onclick="openLetter()">💌 Open Love Letter</button>
+  <button class="btn" onclick="showSurprise()">🎁 Surprise</button>
+  <button class="btn" onclick="openLetter()">💌 Love Letter</button>
 
-  <!-- PHOTO MEMORIES -->
-  <div class="card photos">
+  <div class="card photos polaroids">
     <h2>Our Memories 💕</h2>
-    <img src="photo1.jpeg">
-    <img src="photo2.jpeg">
+    <div class="polaroid">
+      <img src="photo1.jpeg">
+      <p>Us ❤️</p>
+    </div>
+    <div class="polaroid">
+      <img src="photo2.jpeg">
+      <p>Forever 💖</p>
+    </div>
   </div>
 
-  <!-- SURPRISE MESSAGE -->
   <div id="surprise" class="hidden-box">
-    <h2>💖 My Bubu 💖</h2>
-    <p>
-      You are my favorite notification, my safest place.
-      You walked into my life and made everything softer,
-      warmer, and more meaningful ❤️
-    </p>
+    <h2>My Bubu 💕</h2>
+    <p>You are my favorite notification and my safest place ❤️</p>
   </div>
 
-  <!-- SECRET TRIGGER -->
-  <div class="secret" onclick="showSecret()">
+  <div style="opacity:0.6;cursor:pointer" onclick="showSecret()">
     (psst… click here)
   </div>
 
-  <!-- SECRET MESSAGE -->
   <div id="secretMessage" class="hidden-box">
-    <h2>🔐 Just Between Us</h2>
-    <p>
-      I may not be perfect, I may mess up at times,
-      but one thing I’m sure of is this —
-      I love you more than anyone ever could ❤️
-    </p>
+    <p>I love you more than anyone ever could ❤️</p>
   </div>
-
-  <footer>
-    Made with ❤️ by Neelabh
-  </footer>
 </div>
 
-<!-- LOVE LETTER POPUP -->
+<!-- LOVE LETTER -->
 <div class="modal" id="letter">
   <div class="modal-content">
     <span class="close" onclick="closeLetter()">×</span>
     <h2>My Love 💌</h2>
     <p>
       You are my favorite notification, my safest place.<br><br>
-
-      Sometimes I look at you and honestly feel like I don’t deserve
-      someone as pure and amazing as you.<br><br>
-
-      You walked into my life and made everything softer,
-      warmer, and more meaningful.<br><br>
-
-      I may not be perfect, I may mess up at times,
-      but one thing I’m sure of is this —
-      I love you more than anyone ever could,
-      in ways words can’t fully explain.<br><br>
-
-      You’re my comfort, my strength,
-      and my favorite part of every day.<br><br>
-
-      I’m grateful for you, always. ❤️<br><br>
-
+      Sometimes I feel I don’t deserve someone as pure as you.<br><br>
+      You made my life softer, warmer, and more meaningful.<br><br>
+      I may mess up sometimes, but I love you endlessly.<br><br>
+      I’m grateful for you. Always ❤️<br><br>
       — Yours, Neelabh
     </p>
   </div>
 </div>
 
 <script>
-/* BASIC FUNCTIONS */
-function showSurprise() {
-  document.getElementById("surprise").style.display = "block";
-}
-function openLetter() {
-  document.getElementById("letter").style.display = "flex";
-}
-function closeLetter() {
-  document.getElementById("letter").style.display = "none";
-}
-function showSecret() {
-  document.getElementById("secretMessage").style.display = "block";
-}
+// HEARTS
+const heartsContainer = document.getElementById("hearts-container");
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = 5 + Math.random() * 5 + "s";
+  heartsContainer.appendChild(h);
+  setTimeout(() => h.remove(), 10000);
+}, 400);
 
-/* COUNTDOWN */
-function updateCountdown() {
-  const now = new Date();
-  const newYear = new Date("January 1, 2026 00:00:00");
-  const diff = newYear - now;
+// BASIC FUNCTIONS
+function showSurprise(){document.getElementById("surprise").style.display="block";}
+function openLetter(){document.getElementById("letter").style.display="flex";}
+function closeLetter(){document.getElementById("letter").style.display="none";}
+function showSecret(){document.getElementById("secretMessage").style.display="block";}
 
-  if (diff <= 0) {
-    document.getElementById("countdown").innerHTML =
-      "🎉 Happy New Year My Love 🎉";
-    return;
-  }
-
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const m = Math.floor((diff / (1000 * 60)) % 60);
-  const s = Math.floor((diff / 1000) % 60);
-
-  document.getElementById("countdown").innerHTML =
-    `${d}d ${h}h ${m}m ${s}s left ❤️`;
+// COUNTDOWN
+function updateCountdown(){
+  const now=new Date();
+  const ny=new Date("January 1, 2026 00:00:00");
+  const d=ny-now;
+  if(d<=0){document.getElementById("countdown").innerHTML="🎉 Happy New Year My Love 🎉";return;}
+  document.getElementById("countdown").innerHTML=
+    `${Math.floor(d/86400000)}d ${Math.floor(d/3600000)%24}h ${Math.floor(d/60000)%60}m ${Math.floor(d/1000)%60}s`;
 }
-setInterval(updateCountdown, 1000);
+setInterval(updateCountdown,1000);
 updateCountdown();
 
-/* FIREWORKS */
-const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let fireworksStarted = false;
-let particles = [];
-
-function explode(x, y) {
-  for (let i = 0; i < 60; i++) {
-    particles.push({
-      x, y,
-      dx: (Math.random() - 0.5) * 8,
-      dy: (Math.random() - 0.5) * 8,
-      life: 100,
-      color: `hsl(${Math.random() * 360},100%,60%)`
-    });
-  }
+// FIREWORKS
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;canvas.height=innerHeight;
+let particles=[];
+function explode(x,y){
+  for(let i=0;i<50;i++)
+    particles.push({x,y,dx:(Math.random()-.5)*8,dy:(Math.random()-.5)*8,l:100,c:`hsl(${Math.random()*360},100%,60%)`});
 }
-
-function animateFireworks() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles = particles.filter(p => {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-    ctx.fillStyle = p.color;
-    ctx.fill();
-    p.x += p.dx;
-    p.y += p.dy;
-    p.life--;
-    return p.life > 0;
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles=particles.filter(p=>{
+    ctx.fillStyle=p.c;
+    ctx.fillRect(p.x,p.y,3,3);
+    p.x+=p.dx;p.y+=p.dy;p.l--;
+    return p.l>0;
   });
-  if (fireworksStarted) requestAnimationFrame(animateFireworks);
+  requestAnimationFrame(animate);
 }
-
-function checkMidnight() {
-  const now = new Date();
-  if (now.getHours() === 0 && now.getMinutes() === 0 && !fireworksStarted) {
-    fireworksStarted = true;
-    document.getElementById("countdown").innerHTML =
-      "🎆 Happy New Year My Love 🎆";
-    setInterval(() => explode(Math.random()*canvas.width, Math.random()*canvas.height/2), 300);
-    animateFireworks();
-    setTimeout(() => fireworksStarted = false, 15000);
-  }
-}
-setInterval(checkMidnight, 1000);
+animate();
+setInterval(()=>{
+  const n=new Date();
+  if(n.getHours()==0 && n.getMinutes()==0) explode(Math.random()*canvas.width,Math.random()*canvas.height/2);
+},500);
 </script>
 
 </body>
