@@ -2,391 +2,41 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy New Year BUBU ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-/* ===== BASE ===== */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
-  color: white;
-  text-align: center;
-  overflow-x: hidden;
-}
-
-/* ===== LAYERS ===== */
-#stars {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-#hearts-container {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.container {
-  position: relative;
-  z-index: 2;
-  max-width: 900px;
-  margin: auto;
-  padding: 60px 20px;
-}
-
-#fireworks {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  pointer-events: none;
-}
-
-/* ===== UI ===== */
-h1 { font-size: 3rem; }
-
-.countdown {
-  font-size: 2rem;
-  margin: 30px 0;
-  padding: 20px;
-  background: rgba(255,255,255,0.25);
-  border-radius: 20px;
-}
-
-.btn {
-  margin: 15px;
-  padding: 15px 35px;
-  font-size: 18px;
-  border: none;
-  border-radius: 30px;
-  background: #ff4d6d;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-.btn:hover { transform: scale(1.1); }
-
-/* ===== HEARTS ===== */
-.heart {
-  position: absolute;
-  bottom: -20px;
-  width: 18px;
-  height: 18px;
-  background: pink;
-  transform: rotate(45deg);
-  animation: floatUp 8s linear infinite;
-}
-
-.heart::before,
-.heart::after {
-  content: "";
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background: pink;
-  border-radius: 50%;
-}
-
-.heart::before { top: -9px; }
-.heart::after { left: -9px; }
-
-@keyframes floatUp {
-  to { transform: translateY(-110vh) rotate(45deg); opacity: 0; }
-}
-
-/* ===== CARDS ===== */
-.card {
-  margin-top: 50px;
-  padding: 30px;
-  background: rgba(255,255,255,0.25);
-  border-radius: 20px;
-}
-
-.polaroids {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.polaroid {
-  background: white;
-  padding: 10px 10px 25px;
-  margin: 15px;
-  width: 220px;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.polaroid img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-.polaroid p {
-  color: #333;
-  margin-top: 10px;
-}
-
-/* ===== MODALS ===== */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(6px);
-  z-index: 1001;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: white;
-  color: #333;
-  padding: 30px;
-  border-radius: 20px;
-  max-width: 520px;
-  text-align: left;
-}
-
-.close {
-  float: right;
-  cursor: pointer;
-  font-size: 22px;
-  color: #ff4d6d;
-}
-
-/* ===== SECRET ===== */
-.hidden-box {
-  display: none;
-  margin-top: 40px;
-  padding: 30px;
-  background: rgba(255,255,255,0.25);
-  border-radius: 20px;
-}
-</style>
-</head>
-
-<body>
-
-<!-- BACKGROUND LAYERS -->
-<canvas id="stars"></canvas>
-<div id="hearts-container"></div>
-<canvas id="fireworks"></canvas>
-
-<!-- CONTENT -->
-<div class="container">
-  <h1>🎆 Happy New Year 🎆</h1>
-  <h2>To My Love, Pranjal ❤️</h2>
-
-  <div class="countdown" id="countdown"></div>
-
-  <button class="btn" onclick="openSurprise()">🎁 Surprise</button>
-  <button class="btn" onclick="openLetter()">💌 Love Letter</button>
-
-  <div class="card">
-    <h2>Our Memories 💕</h2>
-    <div class="polaroids">
-      <div class="polaroid"><img src="photo1.jpeg"><p>Us ❤️</p></div>
-      <div class="polaroid"><img src="photo2.jpeg"><p>Forever 💖</p></div>
-    </div>
-  </div>
-
-  <button class="btn" onclick="openPassword()">🔐 Unlock Secret</button>
-
-  <div id="secretMessage" class="hidden-box">
-    <h2>Only You 💖</h2>
-    <p>
-      You are my home, my heart, my forever.<br>
-      Every day with you is my favorite story.<br>
-      In your presence, I find peace and warmth.<br>
-      No matter where life takes us,<br>
-      my love will always remain the same.<br>
-      I love you Kuchu Puchu ❤️
-    </p>
-  </div>
-</div>
-
-<!-- LOVE LETTER -->
-<div class="modal" id="letter">
-  <div class="modal-content">
-    <span class="close" onclick="closeLetter()">×</span>
-    <h2>My Love 💌</h2>
-    <p>
-      You are my favorite notification, my safest place.<br><br>
-      You walked into my life and made everything softer and warmer.<br><br>
-      I may not be perfect, but my love for you is.<br><br>
-      — Yours, Neelabh ❤️
-    </p>
-  </div>
-</div>
-
-<!-- PASSWORD -->
-<div class="modal" id="passwordModal">
-  <div class="modal-content">
-    <span class="close" onclick="closePassword()">×</span>
-    <h2>Enter Our Date 💞</h2>
-    <input id="passwordInput" placeholder="DDMMYYYY">
-    <button class="btn" onclick="checkPassword()">Unlock 💖</button>
-    <div id="errorMsg"></div>
-  </div>
-</div>
-
-<script>
-/* ===== STARS ===== */
-const sc = document.getElementById("stars");
-const sctx = sc.getContext("2d");
-sc.width = innerWidth; sc.height = innerHeight;
-let stars = Array.from({length:200},()=>({
-  x:Math.random()*sc.width,
-  y:Math.random()*sc.height,
-  r:Math.random()*1.5,
-  a:Math.random(),
-  d:Math.random()*0.02
-}));
-function drawStars(){
-  sctx.clearRect(0,0,sc.width,sc.height);
-  stars.forEach(s=>{
-    s.a+=s.d; if(s.a<=0||s.a>=1) s.d*=-1;
-    sctx.fillStyle=`rgba(255,255,255,${s.a})`;
-    sctx.beginPath(); sctx.arc(s.x,s.y,s.r,0,Math.PI*2); sctx.fill();
-  });
-  requestAnimationFrame(drawStars);
-}
-drawStars();
-
-/* ===== HEARTS ===== */
-setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.style.left=Math.random()*100+"vw";
-  document.getElementById("hearts-container").appendChild(h);
-  setTimeout(()=>h.remove(),8000);
-},400);
-
-/* ===== FIREWORKS ===== */
-const fw=document.getElementById("fireworks");
-const fctx=fw.getContext("2d");
-fw.width=innerWidth; fw.height=innerHeight;
-let fireworks=[];
-function fireworkBurst(){
-  for(let i=0;i<10;i++){
-    fireworks.push({
-      x:Math.random()*fw.width,
-      y:Math.random()*fw.height/2,
-      r:0
-    });
-  }
-}
-function animateFW(){
-  fctx.clearRect(0,0,fw.width,fw.height);
-  fireworks.forEach((f,i)=>{
-    fctx.beginPath();
-    fctx.arc(f.x,f.y,f.r,0,Math.PI*2);
-    fctx.fillStyle="rgba(255,182,193,0.8)";
-    fctx.fill();
-    f.r+=2;
-    if(f.r>50) fireworks.splice(i,1);
-  });
-  requestAnimationFrame(animateFW);
-}
-animateFW();
-
-/* ===== COUNTDOWN ===== */
-function updateCountdown(){
-  const d=new Date("Jan 1, 2026 00:00:00")-new Date();
-  if(d<=0){
-    document.getElementById("countdown").innerHTML="🎉 Happy New Year My Love 🎉";
-    fireworkBurst();
-    return;
-  }
-  countdown.innerHTML=
-    Math.floor(d/86400000)+"d "+
-    Math.floor(d/3600000)%24+"h "+
-    Math.floor(d/60000)%60+"m "+
-    Math.floor(d/1000)%60+"s";
-}
-setInterval(updateCountdown,1000);
-updateCountdown();
-
-/* ===== MODALS & SECRET ===== */
-const correctPassword="23012025";
-
-function openSurprise(){ fireworkBurst(); }
-function openLetter(){ letter.style.display="flex"; }
-function closeLetter(){ letter.style.display="none"; }
-function openPassword(){ passwordModal.style.display="flex"; }
-function closePassword(){ passwordModal.style.display="none"; }
-
-function checkPassword(){
-  if(passwordInput.value===correctPassword){
-    secretMessage.style.display="block";
-    closePassword();
-    fireworkBurst();
-  } else {
-    errorMsg.innerText="You know this date ❤️";
-  }
-}
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
 <title>Happy New Year Pranjal ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ===== BASE ===== */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #ff758c, #ff7eb3);
   color: white;
   text-align: center;
-  overflow-x: hidden;
 }
 
-/* ===== LAYERS ===== */
-#stars {
+/* ===== BACKGROUND WRAPPER ===== */
+#background {
   position: fixed;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
   pointer-events: none;
 }
 
-#hearts-container {
-  position: fixed;
+#stars, #fireworks {
+  position: absolute;
   inset: 0;
-  z-index: 1;
-  pointer-events: none;
 }
 
+/* ===== CONTENT ===== */
 .container {
   position: relative;
-  z-index: 2;
+  z-index: 10;
   max-width: 900px;
   margin: auto;
   padding: 60px 20px;
 }
 
-#fireworks {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  pointer-events: none;
-}
-
-/* ===== UI ===== */
 h1 { font-size: 3rem; }
 
 .countdown {
@@ -407,7 +57,6 @@ h1 { font-size: 3rem; }
   color: white;
   cursor: pointer;
   transition: 0.3s;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .btn:hover { transform: scale(1.1); }
@@ -422,9 +71,7 @@ h1 { font-size: 3rem; }
   transform: rotate(45deg);
   animation: floatUp 8s linear infinite;
 }
-
-.heart::before,
-.heart::after {
+.heart::before, .heart::after {
   content: "";
   position: absolute;
   width: 18px;
@@ -432,7 +79,6 @@ h1 { font-size: 3rem; }
   background: pink;
   border-radius: 50%;
 }
-
 .heart::before { top: -9px; }
 .heart::after { left: -9px; }
 
@@ -450,8 +96,8 @@ h1 { font-size: 3rem; }
 
 .polaroids {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .polaroid {
@@ -460,7 +106,6 @@ h1 { font-size: 3rem; }
   margin: 15px;
   width: 220px;
   border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .polaroid img {
@@ -470,10 +115,7 @@ h1 { font-size: 3rem; }
   border-radius: 6px;
 }
 
-.polaroid p {
-  color: #333;
-  margin-top: 10px;
-}
+.polaroid p { color: #333; }
 
 /* ===== MODALS ===== */
 .modal {
@@ -481,8 +123,7 @@ h1 { font-size: 3rem; }
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(6px);
-  z-index: 1001;
+  z-index: 20;
   justify-content: center;
   align-items: center;
 }
@@ -503,7 +144,6 @@ h1 { font-size: 3rem; }
   color: #ff4d6d;
 }
 
-/* ===== SECRET ===== */
 .hidden-box {
   display: none;
   margin-top: 40px;
@@ -516,10 +156,11 @@ h1 { font-size: 3rem; }
 
 <body>
 
-<!-- BACKGROUND LAYERS -->
-<canvas id="stars"></canvas>
-<div id="hearts-container"></div>
-<canvas id="fireworks"></canvas>
+<!-- BACKGROUND -->
+<div id="background">
+  <canvas id="stars"></canvas>
+  <canvas id="fireworks"></canvas>
+</div>
 
 <!-- CONTENT -->
 <div class="container">
@@ -528,7 +169,7 @@ h1 { font-size: 3rem; }
 
   <div class="countdown" id="countdown"></div>
 
-  <button class="btn" onclick="openSurprise()">🎁 Surprise</button>
+  <button class="btn" onclick="fireworkBurst()">🎁 Surprise</button>
   <button class="btn" onclick="openLetter()">💌 Love Letter</button>
 
   <div class="card">
@@ -542,28 +183,27 @@ h1 { font-size: 3rem; }
   <button class="btn" onclick="openPassword()">🔐 Unlock Secret</button>
 
   <div id="secretMessage" class="hidden-box">
-    <h2>Only You 💖</h2>
-    <p>
-      You are my home, my heart, my forever.<br>
-      Every day with you is my favorite story.<br>
-      In your presence, I find peace and warmth.<br>
-      No matter where life takes us,<br>
-      my love will always remain the same.<br>
-      I love you Kuchu Puchu ❤️
-    </p>
-  </div>
+  <h2>Only You 💖</h2>
+  <p>
+    You are my home, my heart, my forever.<br>
+    Every day with you is my favorite story.<br>
+    In your presence, I find peace and warmth.<br>
+    No matter where life takes us,<br>
+    my love will always remain the same.<br><br>
+    I love you, Kuchu Puchu ❤️
+  </p>
+</div>
 </div>
 
-<!-- LOVE LETTER -->
+<!-- LETTER -->
 <div class="modal" id="letter">
   <div class="modal-content">
     <span class="close" onclick="closeLetter()">×</span>
     <h2>My Love 💌</h2>
     <p>
       You are my favorite notification, my safest place.<br><br>
-      You walked into my life and made everything softer and warmer.<br><br>
-      I may not be perfect, but my love for you is.<br><br>
-      — Yours, Neelabh ❤️
+      I love you more than words can ever explain.<br><br>
+      — Neelabh ❤️
     </p>
   </div>
 </div>
@@ -580,45 +220,33 @@ h1 { font-size: 3rem; }
 </div>
 
 <script>
-/* ===== STARS ===== */
-const sc = document.getElementById("stars");
-const sctx = sc.getContext("2d");
+/* STARS */
+const sc = stars, sctx = sc.getContext("2d");
 sc.width = innerWidth; sc.height = innerHeight;
-let stars = Array.from({length:200},()=>({
+let starsArr = Array.from({length:150},()=>({
   x:Math.random()*sc.width,
   y:Math.random()*sc.height,
-  r:Math.random()*1.5,
   a:Math.random(),
-  d:Math.random()*0.02
+  d:Math.random()*0.01
 }));
 function drawStars(){
   sctx.clearRect(0,0,sc.width,sc.height);
-  stars.forEach(s=>{
+  starsArr.forEach(s=>{
     s.a+=s.d; if(s.a<=0||s.a>=1) s.d*=-1;
     sctx.fillStyle=`rgba(255,255,255,${s.a})`;
-    sctx.beginPath(); sctx.arc(s.x,s.y,s.r,0,Math.PI*2); sctx.fill();
+    sctx.fillRect(s.x,s.y,2,2);
   });
   requestAnimationFrame(drawStars);
 }
 drawStars();
 
-/* ===== HEARTS ===== */
-setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.style.left=Math.random()*100+"vw";
-  document.getElementById("hearts-container").appendChild(h);
-  setTimeout(()=>h.remove(),8000);
-},400);
-
-/* ===== FIREWORKS ===== */
-const fw=document.getElementById("fireworks");
-const fctx=fw.getContext("2d");
-fw.width=innerWidth; fw.height=innerHeight;
-let fireworks=[];
+/* FIREWORKS */
+const fw = fireworks, fctx = fw.getContext("2d");
+fw.width = innerWidth; fw.height = innerHeight;
+let bursts=[];
 function fireworkBurst(){
-  for(let i=0;i<10;i++){
-    fireworks.push({
+  for(let i=0;i<8;i++){
+    bursts.push({
       x:Math.random()*fw.width,
       y:Math.random()*fw.height/2,
       r:0
@@ -627,52 +255,42 @@ function fireworkBurst(){
 }
 function animateFW(){
   fctx.clearRect(0,0,fw.width,fw.height);
-  fireworks.forEach((f,i)=>{
+  bursts.forEach((b,i)=>{
     fctx.beginPath();
-    fctx.arc(f.x,f.y,f.r,0,Math.PI*2);
-    fctx.fillStyle="rgba(255,182,193,0.8)";
+    fctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+    fctx.fillStyle="rgba(255,182,193,0.7)";
     fctx.fill();
-    f.r+=2;
-    if(f.r>50) fireworks.splice(i,1);
+    b.r+=3;
+    if(b.r>60) bursts.splice(i,1);
   });
   requestAnimationFrame(animateFW);
 }
 animateFW();
 
-/* ===== COUNTDOWN ===== */
+/* COUNTDOWN */
 function updateCountdown(){
   const d=new Date("Jan 1, 2026 00:00:00")-new Date();
-  if(d<=0){
-    document.getElementById("countdown").innerHTML="🎉 Happy New Year My Love 🎉";
-    fireworkBurst();
-    return;
-  }
+  if(d<=0){ countdown.innerHTML="🎉 Happy New Year 🎉"; fireworkBurst(); return; }
   countdown.innerHTML=
     Math.floor(d/86400000)+"d "+
     Math.floor(d/3600000)%24+"h "+
-    Math.floor(d/60000)%60+"m "+
-    Math.floor(d/1000)%60+"s";
+    Math.floor(d/60000)%60+"m";
 }
 setInterval(updateCountdown,1000);
 updateCountdown();
 
-/* ===== MODALS & SECRET ===== */
+/* MODALS */
 const correctPassword="23012025";
-
-function openSurprise(){ fireworkBurst(); }
 function openLetter(){ letter.style.display="flex"; }
 function closeLetter(){ letter.style.display="none"; }
 function openPassword(){ passwordModal.style.display="flex"; }
 function closePassword(){ passwordModal.style.display="none"; }
-
 function checkPassword(){
   if(passwordInput.value===correctPassword){
     secretMessage.style.display="block";
     closePassword();
     fireworkBurst();
-  } else {
-    errorMsg.innerText="Hmph ye bhi nhi bata paaye ❤️";
-  }
+  } else errorMsg.innerText="You know this date ❤️";
 }
 </script>
 
