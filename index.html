@@ -151,9 +151,26 @@ h1 { font-size: 3rem; }
   background: rgba(255,255,255,0.25);
   border-radius: 20px;
 }
+  /* EVIL EYE CHARM */
+#evil-eye {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  font-size: 32px;
+  animation: evilFloat 4s ease-in-out infinite;
+  z-index: 3; /* above content, below fireworks */
+  opacity: 0.85;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes evilFloat {
+  0%   { transform: translateY(0) rotate(0deg); }
+  50%  { transform: translateY(-10px) rotate(5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
 </style>
 </head>
-
 <body>
 
 <!-- BACKGROUND -->
@@ -304,6 +321,7 @@ function checkPassword(){
   } else errorMsg.innerText="Ye Kaise galat kr diya Hmphhhhhhhh ❤️";
 }
 </script>
-
+<!-- EVIL EYE CHARM -->
+<div id="evil-eye">🧿</div>
 </body>
 </html>
