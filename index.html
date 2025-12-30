@@ -151,24 +151,51 @@ h1 { font-size: 3rem; }
   background: rgba(255,255,255,0.25);
   border-radius: 20px;
 }
-  /* EVIL EYE CHARM */
+/* EVIL EYE CHARM */
 #evil-eye {
   position: fixed;
   bottom: 25px;
   right: 25px;
   font-size: 32px;
   animation: evilFloat 4s ease-in-out infinite;
-  z-index: 3; /* above content, below fireworks */
+  z-index: 3;
   opacity: 0.85;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
 }
 
+/* FLOAT */
 @keyframes evilFloat {
   0%   { transform: translateY(0) rotate(0deg); }
   50%  { transform: translateY(-10px) rotate(5deg); }
   100% { transform: translateY(0) rotate(0deg); }
 }
+
+/* SPARKLE EFFECT */
+#evil-eye::after {
+  content: "✨";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  transition: 0.3s ease;
+  font-size: 14px;
+}
+
+#evil-eye:hover::after {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  animation: sparkle 0.6s ease-in-out;
+}
+
+@keyframes sparkle {
+  0%   { transform: translateX(-50%) translateY(0) scale(0); opacity: 0; }
+  50%  { transform: translateX(-50%) translateY(-8px) scale(1); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(-14px) scale(0.5); opacity: 0; }
+}
+
 </style>
 </head>
 <body>
