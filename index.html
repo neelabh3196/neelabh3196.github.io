@@ -262,6 +262,26 @@ more than actions can show, and more than time can measure.<br><br>
     </p>
   </div>
 </div>
+  <!-- SURPRISE MODAL -->
+<div class="modal" id="surpriseModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeSurprise()">×</span>
+    <h2>For You, My Love 🎁</h2>
+    <p>
+      This year wasn’t just about days and months,  
+      it was about moments — and my favorite moments were with you.<br><br>
+
+      Thank you for loving me, choosing me,  
+      and standing by me even when I wasn’t at my best.<br><br>
+
+      You are my miracle, my happiness,  
+      and my forever New Year wish ❤️<br><br>
+
+      🧿✨ Always protected, always loved.
+    </p>
+  </div>
+</div>
+
 
 <!-- PASSWORD -->
 <div class="modal" id="passwordModal">
@@ -347,6 +367,13 @@ function checkPassword(){
     fireworkBurst();
   } else errorMsg.innerText="Ye Kaise galat kr diya Hmphhhhhhhh ❤️";
 }
+  function showSurprise(){
+  document.getElementById("surpriseModal").style.display = "flex";
+}
+function closeSurprise(){
+  document.getElementById("surpriseModal").style.display = "none";
+}
+
 </script>
 <!-- EVIL EYE CHARM -->
 <div id="evil-eye">🧿</div>
